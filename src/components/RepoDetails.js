@@ -31,7 +31,7 @@ function RepoListElement(){
           <p>Description:</p>
           {repo.description !== null ? <span className='greenText'> {repo.description}</span> : <span className='redText'> None </span>}
           <p>Stars:</p>
-          {repo.stars !== null ? <span className='greenText'> {repo.stars}</span> : <span className='redText'> None </span>}
+          {repo.stars !== null ? <span className='blueText'> {repo.stars}</span> : <span className='redText'> None </span>}
         </li>
       )
     })
