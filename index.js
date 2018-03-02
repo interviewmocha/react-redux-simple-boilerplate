@@ -12,6 +12,8 @@ app.use(express.static(__dirname + "/public"));
 // files inside src folder will be able to be accessed with "dist" alias
 app.use("/dist", express.static(__dirname + "/dist"))
 
+app.use("/styles", express.static(__dirname + "/styles"))
+
 // Serve index.html from the mounted public directory
 app.get('/', function(req, res){ 
 
