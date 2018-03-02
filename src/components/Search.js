@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import { get } from '../utils/request'
+import { setBusy } from '../actions'
 
 class Search extends Component {
 
@@ -18,7 +21,16 @@ class Search extends Component {
   }
 
   onSearchUserClick() {
-    get(`https://github-user.now.sh?username=${this.state.userName}`).then(data => console.log(data))
+    if(this.props.busy) {
+      return 
+    }
+
+    this.props.dispatch(setBusy(true))
+    get(`https://github-user.now.sh?username=${this.state.userName}`)
+        .then(data => {
+          this.props.dispatch(setBusy(false))
+          console.log(data)
+        })
   }
 
   render()  {
@@ -32,10 +44,14 @@ class Search extends Component {
                 onChange={event => this.onInputChange(event.target.value)}
                 type='text'
               />
-              <button 
+              
+              <button
+                className={this.props.busy ? 'busy' : ''} 
+                disabled={this.props.busy}
                 onClick={this.onSearchUserClick}
                 type="submit"
               >Search </button>
+              
           
         </div>
         <div className='repo-list'>
@@ -49,4 +65,11 @@ class Search extends Component {
     )
   }
 }
-export default Search
+
+function mapStateToProps(state) {
+    return {
+      busy : state.home.busy
+    }
+}
+
+export default connect(mapStateToProps)(Search)
