@@ -1,17 +1,7 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom';
 
-class Main extends Component {
+import React from 'react' 
+import ReactDOM from 'react-dom'
+import Main from './Main'
 
-  componentDidMount() {
-    console.log('mounted')
-  }
-
-  render() {
-    return <div> Test </div>
-  }
-}
-
-console.log('React DOm : ', ReactDOM)
 
 ReactDOM.render( <Main/>, document.getElementById('root'))
