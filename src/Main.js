@@ -7,7 +7,7 @@ class Main extends Component {
   }
 
   onInputChange (userName) {
-    console.log('set the usernsame of the repo')
+    this.setState({userName})
   }
 
   render()  {
