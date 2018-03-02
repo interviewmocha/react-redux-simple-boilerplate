@@ -22,3 +22,23 @@ input {
 .busy {
     opacity: 0.2;
 }
+
+.repo-list {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px dotted #666666;
+}
+
+ul {
+    padding: 0px;
+    list-style: none;
+}
+
+li {
+    border: 1px solid #333333;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
