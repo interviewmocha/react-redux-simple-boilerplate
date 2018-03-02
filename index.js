@@ -8,9 +8,9 @@ var PORT = process.env.PORT || 3000;
 // To serve static assets mount directory 
 app.use(express.static(__dirname + "/public"));
 
-// To serve src assets , mount src folder with alias 'js'
-// files inside src folder will be able to be accessed with "js" alias
-app.use("/js", express.static(__dirname + "/src"))
+// To serve src assets , mount src folder with alias 'dist'
+// files inside src folder will be able to be accessed with "dist" alias
+app.use("/dist", express.static(__dirname + "/dist"))
 
 // Serve index.html from the mounted public directory
 app.get('/', function(req, res){ 
