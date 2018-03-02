@@ -22,7 +22,7 @@ function RepoListElement(){
         <li
           key={repo.id}
           className='list-group-item'
-          onClick={() => window.open(repo.html_url, '_blank')}
+          onClick={() => window.open(repo.url, '_blank')}
           >
           <h3 className='blueText'>{repo.name}</h3>
           <p> Name:
