@@ -6,3 +6,10 @@ export function setBusy(busy) {
     }
   }
 }
+
+export function storeResult(result) {
+  return {
+    type : 'STORE_RESULT',
+    data : result
+  }
+}

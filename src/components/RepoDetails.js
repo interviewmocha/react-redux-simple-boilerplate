@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 const RepoDetails = ({ repoDetail }) => {
     return (
@@ -8,7 +9,7 @@ const RepoDetails = ({ repoDetail }) => {
         onClick={() => console.log('ff')}
         >
         <img src={repoDetail.avatar} alt={repoDetail.avatar}/>
-        <h3 className='blueText'>{repo.name}</h3>
+        <h3 className='blueText'>{repoDetail.name}</h3>
         {RepoListElement(repoDetail.repos)}
 
       </li>
@@ -39,5 +40,10 @@ function RepoListElement(){
 }
 
 
+function mapStateToProps(state) {
+    return {
+        repoDetail : state.home.repoDetails || {}
+    }
+}
 
-export default RepoDetails
+export default connect(mapStateToProps)(RepoDetails)

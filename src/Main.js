@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Search from './components/Search'
+import RepoDetails from './components/RepoDetails'
 
 class Main extends Component {
 
@@ -8,6 +9,7 @@ class Main extends Component {
     return (
       <div>
       <Search/>
+      <RepoDetails/>
       </div>
     )
   }

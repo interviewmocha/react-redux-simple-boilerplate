@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { get } from '../utils/request'
-import { setBusy } from '../actions'
+import { setBusy, storeResult } from '../actions'
 
 class Search extends Component {
 
@@ -29,7 +29,7 @@ class Search extends Component {
     get(`https://github-user.now.sh?username=${this.state.userName}`)
         .then(data => {
           this.props.dispatch(setBusy(false))
-          console.log(data)
+          this.props.dispatch(storeResult(data.data))
         })
   }
 
