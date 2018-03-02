@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { get } from '../utils/request'
 import { setBusy, storeResult } from '../actions'
@@ -36,6 +37,7 @@ class Search extends Component {
   render()  {
     return (
       <div>
+        <Link to="/history"> History </Link>
         <div className='search-bar'>
           
               <input

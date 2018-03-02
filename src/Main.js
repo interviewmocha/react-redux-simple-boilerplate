@@ -8,8 +8,8 @@ class Main extends Component {
   render()  {
     return (
       <div>
-      <Search/>
-      <RepoDetails/>
+        <Search/>
+        <RepoDetails/>
       </div>
     )
   }

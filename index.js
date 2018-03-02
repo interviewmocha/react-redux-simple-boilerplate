@@ -15,10 +15,10 @@ app.use("/dist", express.static(__dirname + "/dist"))
 app.use("/styles", express.static(__dirname + "/styles"))
 
 // Serve index.html from the mounted public directory
-app.get('/', function(req, res){ 
+app.get('*', function(req, res){ 
 
     // Send index file on wire
-    res.sendFile('index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 // Boot server
