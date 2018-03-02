@@ -10,15 +10,18 @@ const RepoDetails = ({ repoDetail }) => {
         >
         <img src={repoDetail.avatar} alt={repoDetail.avatar}/>
         <h3 className='blueText'>{repoDetail.name}</h3>
-        {RepoListElement(repoDetail.repos)}
+        {RepoListElement(repoDetail)}
 
       </li>
     )
 }
 
-function RepoListElement(){
+
   const RepoListElement = ({ repos }) => {
-    return _.map(repos, repo => {
+    if(!repos) {
+      return null 
+    }
+    return repos.map(repo => {
       return (
         <li
           key={repo.id}
@@ -37,7 +40,7 @@ function RepoListElement(){
       )
     })
   }
-}
+
 
 
 function mapStateToProps(state) {
