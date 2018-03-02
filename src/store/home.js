@@ -2,7 +2,14 @@
 
 export default function(state = {}, action) {
     switch(action.type) {
-        default:
+        case 'SET_BUSY': 
+
+            return {
+              ...state,
+              busy : action.data.busy
+            }
+        
+        default: 
             return state
     }
 }

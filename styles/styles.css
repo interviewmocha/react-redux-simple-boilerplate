@@ -19,6 +19,10 @@ input {
     border: 1px solid #999999;
 }
 
+.busy {
+    opacity: 0.2;
+}
+
 .repo-list {
     max-width: 600px;
     margin: 0 auto;
