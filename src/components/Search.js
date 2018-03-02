@@ -31,6 +31,9 @@ class Search extends Component {
         .then(data => {
           this.props.dispatch(setBusy(false))
           this.props.dispatch(storeResult(data.data))
+          this.setState({
+              userName : ''
+          })
         })
   }
 
