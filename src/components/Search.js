@@ -1,80 +1,94 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { Link } from "react-router-dom"
 
-import { get } from '../utils/request'
-import { setBusy, storeResult } from '../actions'
+import { get, cancelToken } from "../utils/request"
+import { setBusy, storeResult } from "../actions"
 
 class Search extends Component {
+	constructor(props) {
+		super(props)
 
-  constructor(props) {
-    super(props)
+		this.onSearchUserClick = this.onSearchUserClick.bind(this)
+		this.debounce = this.debounce.bind(this)
+		this.autoTrigger = this.autoTrigger.bind(this)
 
-    this.onSearchUserClick = this.onSearchUserClick.bind(this)
-  }
+		this.bouncer = this.debounce(this.autoTrigger, 300).bind(this)
+	}
 
-  state = {
-    userName: ''
-  }
+	debounce(execFn, wait) {
+		let timer
 
-  onInputChange (userName) {
-    this.setState({userName})
-  }
+		return function(args) {
+			if (timer) {
+				clearTimeout(timer)
+			}
 
-  onSearchUserClick() {
-    if(this.props.busy) {
-      return 
-    }
+			timer = setTimeout(() => {
+				execFn.apply(this, args)
+			}, wait)
+		}
+	}
 
-    this.props.dispatch(setBusy(true))
-    get(`https://github-user.now.sh?username=${this.state.userName}`)
-        .then(data => {
-          this.props.dispatch(setBusy(false))
-          this.props.dispatch(storeResult(data.data))
-          this.setState({
-              userName : ''
-          })
-        })
-  }
+	state = {
+		userName: "",
+	}
 
-  render()  {
-    return (
-      <div>
-        <Link to="/history"> History </Link>
-        <div className='search-bar'>
-          
-              <input
-                placeholder="Enter a Github User's name"
-                value={this.state.userName}
-                onChange={event => this.onInputChange(event.target.value)}
-                type='text'
-              />
-              
-              <button
-                className={this.props.busy ? 'busy' : ''} 
-                disabled={this.props.busy}
-                onClick={this.onSearchUserClick}
-                type="submit"
-              >Search </button>
-              
-          
-        </div>
-        <div className='repo-list'>
-          <h4>List of available repositories:</h4>
-          <p>(click on any repo to visit on GitHub)</p>
-          <ul>
-            Here the repo list will be shown
-          </ul>
-        </div>
-      </div>
-    )
-  }
+	onInputChange(userName) {
+		this.setState({ userName })
+
+		this.bouncer()
+	}
+
+	autoTrigger() {
+		if (this.cancelTokenFn) {
+			this.cancelTokenFn()
+			this.cancelTokenFn = null
+		}
+		this.props.dispatch(setBusy(false))
+		this.onSearchUserClick()
+	}
+
+	onSearchUserClick() {
+		if (this.props.busy) {
+			return
+		}
+
+		this.props.dispatch(setBusy(true))
+		get(`https://github-user.now.sh?username=${this.state.userName}`, cancelTokenFn => {
+			this.cancelTokenFn = cancelTokenFn
+		}).then(data => {
+			this.props.dispatch(setBusy(false))
+			this.props.dispatch(storeResult(data.data))
+		})
+	}
+
+	render() {
+		return (
+			<div>
+				<Link to="/history"> History </Link>
+				<div className="search-bar">
+					<input
+						placeholder="Enter a Github User's name"
+						value={this.state.userName}
+						onChange={event => this.onInputChange(event.target.value)}
+						type="text"
+					/>
+				</div>
+				<div className="repo-list">
+					<h4>List of available repositories:</h4>
+					<p>(click on any repo to visit on GitHub)</p>
+					<ul>Here the repo list will be shown</ul>
+				</div>
+			</div>
+		)
+	}
 }
 
 function mapStateToProps(state) {
-    return {
-      busy : state.home.busy
-    }
+	return {
+		busy: state.home.busy,
+	}
 }
 
 export default connect(mapStateToProps)(Search)
